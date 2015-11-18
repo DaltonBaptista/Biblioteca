@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Teste3.tbl_livro>
+
+@{
+    ViewBag.Title = "listar_categoria";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+<aside class="right-side">
+     
+    <table class="table">
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.autor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.autor_principal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.editora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.edicao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.volume)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbl_categoria.descricao)
+                </td>
+            </tr>
+        }
+    </table>
+
+    </aside>

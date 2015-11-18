@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Teste3.tbl_cliente>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<aside class="right-side">
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.bi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nuit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.morada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.bairro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telf1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telf2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tbl_distrito.descricao)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.bi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nuit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.morada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.bairro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.telf1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.telf2)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbl_distrito.descricao)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id_cliente }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id_cliente }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id_cliente })
+                </td>
+            </tr>
+        }
+
+    </table>
+    </aside>

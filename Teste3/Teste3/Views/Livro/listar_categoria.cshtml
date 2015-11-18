@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Teste3.tbl_livro>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<aside class="right-side">
+
+
+    <p>
+        <h1>Pesquisar Por Autor</h1>
+    </p>
+    @using (Html.BeginForm("Index", "Livro", FormMethod.Get))
+    {
+        @Html.TextBox("pesquisa")
+        <input type="submit" value="Pesquisar" />
+
+
+    }
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.autor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.autor_principal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.editora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.edicao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.volume)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tbl_categoria.descricao)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.autor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.autor_principal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.editora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.edicao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.volume)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbl_categoria.descricao)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id_livro }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id_livro }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id_livro })
+                </td>
+            </tr>
+        }
+
+    </table>
+</aside>

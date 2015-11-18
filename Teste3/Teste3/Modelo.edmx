@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="biblioteca1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tbl_categoria">
+          <Key>
+            <PropertyRef Name="id_categoria" />
+          </Key>
+          <Property Name="id_categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_cliente">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="int" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bi" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nuit" Type="int" Nullable="false" />
+          <Property Name="morada" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bairro" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="telf1" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="telf2" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_distrito" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_distrito">
+          <Key>
+            <PropertyRef Name="id_distrito" />
+          </Key>
+          <Property Name="id_distrito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descricao" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_livro">
+          <Key>
+            <PropertyRef Name="id_livro" />
+          </Key>
+          <Property Name="id_livro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="autor" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="autor_principal" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="editora" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="edicao" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="volume" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="id_categoria" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_livros_requisitados">
+          <Key>
+            <PropertyRef Name="id_livros_requisitados" />
+          </Key>
+          <Property Name="id_livros_requisitados" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="observacao" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_cliente" Type="int" Nullable="false" />
+          <Property Name="id_livro" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tbl_cliente_tbl_distrito">
+          <End Role="tbl_distrito" Type="Self.tbl_distrito" Multiplicity="1" />
+          <End Role="tbl_cliente" Type="Self.tbl_cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_distrito">
+              <PropertyRef Name="id_distrito" />
+            </Principal>
+            <Dependent Role="tbl_cliente">
+              <PropertyRef Name="id_distrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_livro_tbl_categoria">
+          <End Role="tbl_categoria" Type="Self.tbl_categoria" Multiplicity="1" />
+          <End Role="tbl_livro" Type="Self.tbl_livro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="tbl_livro">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_livros_requisitados_tbl_cliente">
+          <End Role="tbl_cliente" Type="Self.tbl_cliente" Multiplicity="1" />
+          <End Role="tbl_livros_requisitados" Type="Self.tbl_livros_requisitados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="tbl_livros_requisitados">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_livros_requisitados_tbl_livro">
+          <End Role="tbl_livro" Type="Self.tbl_livro" Multiplicity="1" />
+          <End Role="tbl_livros_requisitados" Type="Self.tbl_livros_requisitados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_livro">
+              <PropertyRef Name="id_livro" />
+            </Principal>
+            <Dependent Role="tbl_livros_requisitados">
+              <PropertyRef Name="id_livro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="biblioteca1ModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_categoria" EntityType="Self.tbl_categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_cliente" EntityType="Self.tbl_cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_distrito" EntityType="Self.tbl_distrito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_livro" EntityType="Self.tbl_livro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_livros_requisitados" EntityType="Self.tbl_livros_requisitados" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_cliente_tbl_distrito" Association="Self.FK_tbl_cliente_tbl_distrito">
+            <End Role="tbl_distrito" EntitySet="tbl_distrito" />
+            <End Role="tbl_cliente" EntitySet="tbl_cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_livro_tbl_categoria" Association="Self.FK_tbl_livro_tbl_categoria">
+            <End Role="tbl_categoria" EntitySet="tbl_categoria" />
+            <End Role="tbl_livro" EntitySet="tbl_livro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_livros_requisitados_tbl_cliente" Association="Self.FK_tbl_livros_requisitados_tbl_cliente">
+            <End Role="tbl_cliente" EntitySet="tbl_cliente" />
+            <End Role="tbl_livros_requisitados" EntitySet="tbl_livros_requisitados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_livros_requisitados_tbl_livro" Association="Self.FK_tbl_livros_requisitados_tbl_livro">
+            <End Role="tbl_livro" EntitySet="tbl_livro" />
+            <End Role="tbl_livros_requisitados" EntitySet="tbl_livros_requisitados" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="biblioteca1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tbl_categoria">
+          <Key>
+            <PropertyRef Name="id_categoria" />
+          </Key>
+          <Property Name="id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_livro" Relationship="Self.FK_tbl_livro_tbl_categoria" FromRole="tbl_categoria" ToRole="tbl_livro" />
+        </EntityType>
+        <EntityType Name="tbl_cliente">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nuit" Type="Int32" Nullable="false" />
+          <Property Name="morada" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telf1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telf2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_distrito" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_distrito" Relationship="Self.FK_tbl_cliente_tbl_distrito" FromRole="tbl_cliente" ToRole="tbl_distrito" />
+          <NavigationProperty Name="tbl_livros_requisitados" Relationship="Self.FK_tbl_livros_requisitados_tbl_cliente" FromRole="tbl_cliente" ToRole="tbl_livros_requisitados" />
+        </EntityType>
+        <EntityType Name="tbl_distrito">
+          <Key>
+            <PropertyRef Name="id_distrito" />
+          </Key>
+          <Property Name="id_distrito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_cliente" Relationship="Self.FK_tbl_cliente_tbl_distrito" FromRole="tbl_distrito" ToRole="tbl_cliente" />
+        </EntityType>
+        <EntityType Name="tbl_livro">
+          <Key>
+            <PropertyRef Name="id_livro" />
+          </Key>
+          <Property Name="id_livro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="autor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="autor_principal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="editora" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="edicao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="volume" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_categoria" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_categoria" Relationship="Self.FK_tbl_livro_tbl_categoria" FromRole="tbl_livro" ToRole="tbl_categoria" />
+          <NavigationProperty Name="tbl_livros_requisitados" Relationship="Self.FK_tbl_livros_requisitados_tbl_livro" FromRole="tbl_livro" ToRole="tbl_livros_requisitados" />
+        </EntityType>
+        <EntityType Name="tbl_livros_requisitados">
+          <Key>
+            <PropertyRef Name="id_livros_requisitados" />
+          </Key>
+          <Property Name="id_livros_requisitados" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="estado" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="observacao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_cliente" Type="Int32" Nullable="false" />
+          <Property Name="id_livro" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_cliente" Relationship="Self.FK_tbl_livros_requisitados_tbl_cliente" FromRole="tbl_livros_requisitados" ToRole="tbl_cliente" />
+          <NavigationProperty Name="tbl_livro" Relationship="Self.FK_tbl_livros_requisitados_tbl_livro" FromRole="tbl_livros_requisitados" ToRole="tbl_livro" />
+        </EntityType>
+        <Association Name="FK_tbl_livro_tbl_categoria">
+          <End Role="tbl_categoria" Type="Self.tbl_categoria" Multiplicity="1" />
+          <End Role="tbl_livro" Type="Self.tbl_livro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="tbl_livro">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_cliente_tbl_distrito">
+          <End Role="tbl_distrito" Type="Self.tbl_distrito" Multiplicity="1" />
+          <End Role="tbl_cliente" Type="Self.tbl_cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_distrito">
+              <PropertyRef Name="id_distrito" />
+            </Principal>
+            <Dependent Role="tbl_cliente">
+              <PropertyRef Name="id_distrito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_livros_requisitados_tbl_cliente">
+          <End Role="tbl_cliente" Type="Self.tbl_cliente" Multiplicity="1" />
+          <End Role="tbl_livros_requisitados" Type="Self.tbl_livros_requisitados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="tbl_livros_requisitados">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_livros_requisitados_tbl_livro">
+          <End Role="tbl_livro" Type="Self.tbl_livro" Multiplicity="1" />
+          <End Role="tbl_livros_requisitados" Type="Self.tbl_livros_requisitados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_livro">
+              <PropertyRef Name="id_livro" />
+            </Principal>
+            <Dependent Role="tbl_livros_requisitados">
+              <PropertyRef Name="id_livro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="biblioteca1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tbl_categoria" EntityType="Self.tbl_categoria" />
+          <EntitySet Name="tbl_cliente" EntityType="Self.tbl_cliente" />
+          <EntitySet Name="tbl_distrito" EntityType="Self.tbl_distrito" />
+          <EntitySet Name="tbl_livro" EntityType="Self.tbl_livro" />
+          <EntitySet Name="tbl_livros_requisitados" EntityType="Self.tbl_livros_requisitados" />
+          <AssociationSet Name="FK_tbl_livro_tbl_categoria" Association="Self.FK_tbl_livro_tbl_categoria">
+            <End Role="tbl_categoria" EntitySet="tbl_categoria" />
+            <End Role="tbl_livro" EntitySet="tbl_livro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_cliente_tbl_distrito" Association="Self.FK_tbl_cliente_tbl_distrito">
+            <End Role="tbl_distrito" EntitySet="tbl_distrito" />
+            <End Role="tbl_cliente" EntitySet="tbl_cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_livros_requisitados_tbl_cliente" Association="Self.FK_tbl_livros_requisitados_tbl_cliente">
+            <End Role="tbl_cliente" EntitySet="tbl_cliente" />
+            <End Role="tbl_livros_requisitados" EntitySet="tbl_livros_requisitados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_livros_requisitados_tbl_livro" Association="Self.FK_tbl_livros_requisitados_tbl_livro">
+            <End Role="tbl_livro" EntitySet="tbl_livro" />
+            <End Role="tbl_livros_requisitados" EntitySet="tbl_livros_requisitados" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="biblioteca1ModelStoreContainer" CdmEntityContainer="biblioteca1Entities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="biblioteca1Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_categoria">
+            <EntityTypeMapping TypeName="biblioteca1Model.tbl_categoria">
+              <MappingFragment StoreEntitySet="tbl_categoria">
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_cliente">
+            <EntityTypeMapping TypeName="biblioteca1Model.tbl_cliente">
+              <MappingFragment StoreEntitySet="tbl_cliente">
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="bi" ColumnName="bi" />
+                <ScalarProperty Name="nuit" ColumnName="nuit" />
+                <ScalarProperty Name="morada" ColumnName="morada" />
+                <ScalarProperty Name="bairro" ColumnName="bairro" />
+                <ScalarProperty Name="telf1" ColumnName="telf1" />
+                <ScalarProperty Name="telf2" ColumnName="telf2" />
+                <ScalarProperty Name="id_distrito" ColumnName="id_distrito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_distrito">
+            <EntityTypeMapping TypeName="biblioteca1Model.tbl_distrito">
+              <MappingFragment StoreEntitySet="tbl_distrito">
+                <ScalarProperty Name="id_distrito" ColumnName="id_distrito" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_livro">
+            <EntityTypeMapping TypeName="biblioteca1Model.tbl_livro">
+              <MappingFragment StoreEntitySet="tbl_livro">
+                <ScalarProperty Name="id_livro" ColumnName="id_livro" />
+                <ScalarProperty Name="autor" ColumnName="autor" />
+                <ScalarProperty Name="autor_principal" ColumnName="autor_principal" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="editora" ColumnName="editora" />
+                <ScalarProperty Name="edicao" ColumnName="edicao" />
+                <ScalarProperty Name="volume" ColumnName="volume" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_livros_requisitados">
+            <EntityTypeMapping TypeName="biblioteca1Model.tbl_livros_requisitados">
+              <MappingFragment StoreEntitySet="tbl_livros_requisitados">
+                <ScalarProperty Name="id_livros_requisitados" ColumnName="id_livros_requisitados" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="observacao" ColumnName="observacao" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="id_livro" ColumnName="id_livro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

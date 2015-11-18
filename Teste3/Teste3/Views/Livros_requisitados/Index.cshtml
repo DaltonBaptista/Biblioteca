@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Teste3.tbl_livros_requisitados>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<aside class="right-side">
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.observacao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tbl_cliente.nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tbl_livro.autor)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.observacao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbl_cliente.nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbl_livro.autor)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id_livros_requisitados }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id_livros_requisitados }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id_livros_requisitados })
+                </td>
+            </tr>
+        }
+
+    </table>
+    </aside>

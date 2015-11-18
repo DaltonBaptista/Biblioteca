@@ -1,0 +1,84 @@
+﻿@model Teste3.tbl_cliente
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<aside class="right-side">
+
+    <div>
+        <h4>tbl_cliente</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.nome)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.nome)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.bi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.bi)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.nuit)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.nuit)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.morada)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.morada)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.bairro)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.bairro)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.telf1)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.telf1)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.telf2)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.telf2)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.tbl_distrito.descricao)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_distrito.descricao)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id_cliente }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    </aside>

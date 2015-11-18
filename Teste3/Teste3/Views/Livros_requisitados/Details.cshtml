@@ -1,0 +1,52 @@
+﻿@model Teste3.tbl_livros_requisitados
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<aside class="right-side">
+
+    <div>
+        <h4>tbl_livros_requisitados</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.estado)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.estado)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.observacao)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.observacao)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.tbl_cliente.nome)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_cliente.nome)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.tbl_livro.autor)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tbl_livro.autor)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.id_livros_requisitados }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    </aside>
